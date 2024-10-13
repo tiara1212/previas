@@ -32,7 +32,7 @@
         </label>
         <LAbel for="txttemario">Temario</LAbel>
         <input type="file" required name="txttemario" id="txttemario" placeholder="TEMARIO"/>
-        <label id="mesas"> Mesa
+        <label id="mesas"> Mesas
             <select class="desplegable" id="mesas" name="mesas">
                 <option disabled selected value=""> selecione aquí</option>
                 <?php
