@@ -5,7 +5,7 @@
     $servername = "localhost";
     $username = "root"; 
     $password = "";
-    $dbname = "previas2";
+    $dbname = "previas";
     
     try{
 
