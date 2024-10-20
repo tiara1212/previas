@@ -6,6 +6,7 @@
     <title>Opciones Alumnos</title>
 </head>
 <body>
+    <a href="../index.php">Atras</a>
     <h1>Bienvenido estudiante</h1>
     <h2>Aquí sus opciones</h2>
     <a href="inscripcion.php">Inscribirme</a>

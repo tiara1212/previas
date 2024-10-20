@@ -6,6 +6,29 @@
     <title>Datos de examen</title>
 </head>
 <body>
+
+<h2>Subir archivo</h2>
+<form action="upload.php" method="POST" enctype="multipart/form-data">
+    <input type="file" name="archivo" required>
+    <button type="submit">Subir</button>
+</form>
+
+<h2>Archivos disponibles para descargar</h2>
+<ul>
+    <?php
+        // Listar los archivos subidos
+        $directorio = 'uploads/';
+        if (is_dir($directorio)) {
+            $archivos = scandir($directorio);
+            foreach ($archivos as $archivo) {
+                if ($archivo != "." && $archivo != "..") {
+                    echo "<li><a href='$directorio$archivo' download>$archivo</a></li>";
+                }
+            }
+        }
+    ?>
+</ul>
+
     <h1>Cargar datos de examen aquí</h1>
     <form action="guardar-datos-examen.php" method=POST>
         <LAbel for="txtnombre">Nombre del docente</LAbel>
@@ -52,6 +75,9 @@
         </label>
         <input  type="submit" value="GUARDAR"/> 
         <input  type="reset" value="CANCELAR"/>
-    </form>
+
+
+
+        
 </body>
 </html>

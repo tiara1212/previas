@@ -6,73 +6,124 @@
     <title>Inscrpción a previas</title>
 </head>
 <body>
-    <h1>¡Inscribete aquí!</h1>
-    <h3>Filtar por:</h3>
-    <!-- LOS SELECT TODAVIA NO FUNCIONAN PERO SU FINALIDAD SERÁ FILTRAR LOS DATOS DE LAS MESAS DE EXAMEN
-    POR AÑO, MATERIA Y TALLERES-->
-    <label  id="mes">   Mes de Instancias
-                <select class="desplegable" id="mes" name="mes">
-                    <option disabled selected value=""> selecione aquí</option>
-                    <?php
-                        include "conexion.php";
-                        $query = "SELECT * from meses";
-                        $ejecucion =  mysqli_query($conectar, $query);
-                        $row = mysqli_num_rows($ejecucion);
-                        if ($row>0) {
-                            while ($mes = mysqli_fetch_assoc($ejecucion)) {
-                                echo "<option value= ".$mes['id_mes']."> ".$mes['mes']." </option>";
-                            }
-                        }
-                        else{
-                            echo "<option value=''>Aún no hay meses cargados.</option>";
-                        }
-                    ?>
-                </select>
-            </label>
-            <label  id="año">   Año escolar
-                <select class="desplegable" id="año" name="año">
-                    <option disabled selected value=""> selecione aquí</option>
-                    <?php
-                        include "conexion.php";
-                        $query = "SELECT * from año";
-                        $ejecucion =  mysqli_query($conectar, $query);
-                        $row = mysqli_num_rows($ejecucion);
-                        if ($row>0) {
-                            while ($año = mysqli_fetch_assoc($ejecucion)) {
-                                echo "<option value= ".$año['id_año']."> ".$año['año']." </option>";
-                            }
-                        }
-                        else{
-                            echo "<option value=''>Aún no hay años cargados.</option>";
-                        }
-                    ?>
-                </select>
-                <input type="reset" value="Cancelar"/>
-            </label>
-            <h3>Accede al formulario de inscripción:</h3>
-            <!-- TABLA DE INFORMACIOON SOBRE LAS MESAS-->
-             <?php 
-                include "conexion.php";
-                $query="SELECT * FROM mesas";
-                $resultado= mysqli_query($conectar, $query);
-                echo "<table border='1'>";
-                echo "<th>Mes</th>";
-                echo "<th>Materia</th>";
-                echo "<th>Día</th>";
-                echo "<th>Fecha</th>";
-                echo "<th>Horario</th>";
-                echo "<th>Acciones</th>";
+    <a href="opciones-alumnos.php">Atras</a>
+    <h1>Iformación sobre mesas de examen</h1>
+    <?php
 
-                while($fila = mysqli_fetch_assoc($resultado)){
-                    echo "<tr>";
-                        echo "<td>".$fila['id_mes']."</td>";
-                        echo "<td>".$fila['id_materia']."</td>";
-                        echo "<td>".$fila['dia']."</td>";
-                        echo "<td>".$fila['fecha']."</td>";
-                        echo "<td>".$fila['horario']."</td>";
-                        echo "<td><a href='formulario-insripcion.php?id=".$fila["id_mesas"]."'>INSCRIBIRME</a></td>";
-                    echo "</tr>";
-                }
-             ?>
+$host = "localhost";
+$user = "root";
+$pass = "";
+$dbname = "previas"; 
+$conn = new mysqli($host, $user, $pass, $dbname);
+
+// Verifica la conexión
+if ($conn->connect_error) {
+    die("Conexión fallida: " . $conn->connect_error);
+}
+
+// Inicializar variable para el nivel seleccionado
+$id_año_seleccionado = isset($_POST['nivel']) ? $_POST['nivel'] : '';
+
+// Consulta para obtener los niveles
+$sqlNiveles = "SELECT id_nivel, nivel FROM nivel";
+$resultNiveles = $conn->query($sqlNiveles);
+
+// Consulta para obtener los datos de la tabla mesas si hay un nivel seleccionado
+$datosMesas = [];
+if ($id_año_seleccionado) {
+    $sqlMesas = "SELECT 
+                    mesas.id_mesas,
+                    (SELECT materia.materia FROM materia WHERE materia.id_materia = mesas.id_materia) AS materia,
+                    mesas.fecha,
+                    mesas.horario
+                FROM 
+                    mesas
+                WHERE 
+                    mesas.id_materia = ?";
+    
+    $stmt = $conn->prepare($sqlMesas);
+    $stmt->bind_param("i", $id_año_seleccionado);
+    $stmt->execute();
+    $resultMesas = $stmt->get_result();
+    
+    // Almacenar resultados en un array
+    while ($row = $resultMesas->fetch_assoc()) {
+        $datosMesas[] = $row;
+    }
+    $stmt->close();
+}
+
+// Estilos CSS para la tabla
+echo '<style>
+        table {
+            width: 80%;
+            margin: 20px auto;
+            border-collapse: collapse;
+            font-family: Arial, sans-serif;
+            box-shadow: 0 2px 15px rgba(64,64,64,0.1);
+        }
+        table th, table td {
+            padding: 10px;
+            border: 1px solid #ddd;
+            text-align: center;
+        }
+        table th {
+            background-color: #f4f4f4;
+            font-weight: bold;
+            color: #333;
+        }
+        table tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        table tr:hover {
+            background-color: #f1f1f1;
+        }
+        h2 {
+            text-align: center;
+            font-family: Arial, sans-serif;
+        }
+      </style>';
+
+// Formulario para seleccionar el nivel
+echo '<h2>Filtrar Mesas por Nivel</h2>';
+echo '<form method="post" action="">';
+echo '<label for="nivel">Selecciona un nivel:</label>';
+echo '<select name="nivel" id="nivel" onchange="this.form.submit()">';
+echo '<option value="">Seleccione un nivel</option>'; // Opción por defecto
+
+// Llenar el dropdown con los niveles
+if ($resultNiveles->num_rows > 0) {
+    while ($nivel = $resultNiveles->fetch_assoc()) {
+        $selected = ($id_año_seleccionado == $nivel['id_nivel']) ? 'selected' : '';
+        echo '<option value="' . $nivel['id_nivel'] . '" ' . $selected . '>' . $nivel['nivel'] . '</option>';
+    }
+}
+echo '</select>';
+echo '</form>';
+
+// Crear la tabla para mostrar los resultados
+if (!empty($datosMesas)) {
+    echo "<h2>Mesas Filtradas</h2>";
+    echo "<table>";
+    echo "<tr><th>ID Mesa</th><th>Materia</th><th>Fecha</th><th>Horario</th></tr>";
+
+    // Recorrer los resultados y mostrarlos en la tabla
+    foreach ($datosMesas as $mesa) {
+        echo "<tr>";
+        echo "<td>" . $mesa["id_mesas"] . "</td>";
+        echo "<td>" . $mesa["materia"] . "</td>";
+        echo "<td>" . $mesa["fecha"] . "</td>";
+        echo "<td>" . $mesa["horario"] . "</td>";
+        echo "</tr>";
+    }
+    echo "</table>";
+} else if ($id_año_seleccionado) {
+    echo "<h3>No se encontraron mesas para el nivel seleccionado.</h3>";
+}
+
+// Cerrar la conexión
+$conn->close();
+?>
+    <h1>¡Inscribete aquí!</h1>
 </body>
 </html>
