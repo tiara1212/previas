@@ -45,10 +45,10 @@
             $mail->isHTML(true);
             $mail->Subject = 'Alumno de la Epet34';
             $mail->Body    = '<p>Hola,</p><p>Te comentamos que fuiste creado por tu preceptora en la página de la EPET 34.</p>
-                              <p>Nombre de Usuario: <strong>' . $nombre . '</strong></p>
-                              <p>Contraseña: <strong>' . $dni . '</strong></p>';
+                            <p>Nombre de Usuario: <strong>' . $nombre . '</strong></p>
+                            <p>Contraseña: <strong>' . $dni . '</strong></p>';
             $mail->AltBody = 'Hola, Te comentamos que fuiste creado por tu preceptora en la página de la EPET 34. ' .
-                             'Nombre de Usuario: ' . $nombre . '. Contraseña: ' . $dni . '.';
+                            'Nombre de Usuario: ' . $nombre . '. Contraseña: ' . $dni . '.';
         
 
             $mail->send();

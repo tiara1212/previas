@@ -1,7 +1,7 @@
 <?php
+    session_start();
+
     include "conexion.php";
-
-
     $nombre = $_POST['txtusuario'];
     $contraseña = $_POST['txtcontraseña'];
 
@@ -13,15 +13,13 @@
     if ($nro_reg > 0) {  
         $validar= mysqli_fetch_assoc($res);  
         if ($validar['contraseña'] == $contraseña) {  
-
- 	        echo '<script> alert("se valido el usuario");</script>';
- 	        header("location: opciones-alumnos.php"); 
- 	        exit();
- 	
+            $_SESSION['DNI'] = $validar['dni'];
+            echo '<script> alert("se valido el usuario");</script>';
+            header("location: opciones-alumnos.php"); 
+            exit();
         }
     }
     else {
-
         echo '<script> alert("no es un usuario."); history.go(-1); </script>';
     }
 ?>

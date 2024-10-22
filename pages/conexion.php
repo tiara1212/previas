@@ -1,10 +1,10 @@
 <?php
 
-$conectar = mysqli_connect("localhost","root","","previas");
+    $conectar = mysqli_connect("localhost","root","","previas");
 
-if(!$conectar){
-    echo 'Error al conectar!!!';
-    exit;
-}
+    if(!$conectar){
+        echo 'Error al conectar!!!';
+        exit;
+    }
 
 ?>
