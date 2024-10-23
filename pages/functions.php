@@ -1,6 +1,11 @@
 <?php
 
+    //important
+    //predefinida la variable de conexion (conectar o conexion) si no es el caso vas a tener que cambiar los nombres
+    //para cada funcion
+
     //funcion para verificar una query
+    
 
     function Query($query){
         include "conexion.php";     
@@ -88,23 +93,41 @@
 
     //funcion para crear filas desde la bd
 
-    function filas($query, $cantidad_columnas, $nametable, $campo){
+    function filas($query, $cantidad_columnas){
 
         if($data = QueryAndGetData($query)){
-            while($row = mysqli_fetch_assoc($data)){
-                echo "<tr>";
-                $values = array_values($row);
-                for($n = 1; $n <= $cantidad_columnas; $n++){
-                    echo "<td>".$values[$n]."</td>";
+            if(mysqli_num_rows($data) > 1){
+                while($row = mysqli_fetch_assoc($data)){
+                    echo "<tr>";
+                    $values = array_values($row);
+                    for($n = 1; $n <= $cantidad_columnas; $n++){
+                        echo "<td>".$values[$n]."</td>";
+                    }
+                    // echo "<td>
+                    //     <a href='delete.php?tabla=$nametable&id=".$values[0]."&campo=".$campo."'>Eliminar</a>
+                    // ";
+                    // echo "
+                    //     <a href='?id=".$values[0]."'>Modificar</a>
+                    // </td>";
+                    // echo "</tr>";
                 }
-                echo "<td>
-                    <a href='delete.php?tabla=$nametable&id=".$values[0]."&campo=".$campo."'>Eliminar</a>
-                ";
-                echo "
-                    <a href='?id=".$values[0]."'>Modificar</a>
-                </td>";
-                echo "</tr>";
             }
+            else{
+                echo "<tr>";
+                    $row = mysqli_fetch_assoc($data);
+                    $values = array_values($row);
+                    for($n = 1; $n <= $cantidad_columnas; $n++){
+                        echo "<td>".$values[$n]."</td>";
+                    }
+                    // echo "<td>
+                    //     <a href='delete.php?tabla=$nametable&id=".$values[0]."&campo=".$campo."'>Eliminar</a>
+                    // ";
+                    // echo "
+                    //     <a href='?id=".$values[0]."'>Modificar</a>
+                    // </td>";
+                    // echo "</tr>";
+            }
+
         }
         else{
             echo "<div>vacio</div>";
