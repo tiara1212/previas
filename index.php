@@ -16,7 +16,7 @@
 <body>
 
     <img src="pages/PREVIAS-PAGE.png" alt="Descripción de la imagen">
-    <a href="pages/alumnos-datos.php">Alumnos</a>
+    <a href="pages/alumnos-datos.php">Alumno</a>
     <a href="pages/profes-datos.php">Profesores</a>
     <a href="pages/preceptores-datos.php">Preceptores</a>
     <a href="pages/admin-datos.php">Administrador de usuarios</a>
