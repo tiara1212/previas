@@ -20,5 +20,7 @@
     <a href="pages/profes-datos.php">Profesores</a>
     <a href="pages/preceptores-datos.php">Preceptores</a>
     <a href="pages/admin-datos.php">Administrador de usuarios</a>
+    <h1>hholaa</h1>
+    <h2>gyuftyftyfyt</h2>
 </body>
 </html>
