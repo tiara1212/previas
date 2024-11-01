@@ -6,14 +6,14 @@
     $contraseña = $_POST['txtcontraseña'];
 
 
-    $sql= "SELECT * FROM alumnos WHERE alumnos.dni = '$nombre' and alumnos.contraseña = '$contraseña'"; 
+    $sql= "SELECT * FROM alumnos WHERE alumnos.nombre = '$nombre' and alumnos.contraseña = '$contraseña'"; 
     $res = mysqli_query( $conectar, $sql); 
     $nro_reg = mysqli_num_rows($res); 
 
     if ($nro_reg > 0) {  
         $validar= mysqli_fetch_assoc($res);  
         if ($validar['contraseña'] == $contraseña) {  
-            $_SESSION['DNI'] = $validar['dni'];
+            $_SESSION['contraseña'] = $validar['contraseña'];
             echo '<script> alert("se valido el usuario");</script>';
             header("location: opciones-alumnos.php"); 
             exit();

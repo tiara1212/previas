@@ -8,7 +8,6 @@
 <body>
     <h1>Bienvenidos profesores</h1>
     <h2>Aquí sus opciones</h2>
-    <a href="examenes-datos.php">Datos de examen</a>
     <a href="profes-ver-inscripciones.php">inscripciones</a>
     <a href="Notas-finales.php">Cargar notas</a>
 </body>

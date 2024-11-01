@@ -6,6 +6,7 @@
     <title>Document</title>
 </head>
 <body>
+    <a href="opciones-preceptores.php">Atrás</a>
     <h1>Previas</h1>
     <h2>Buscar alumnos</h2>
 </head>
@@ -108,7 +109,122 @@
                         <th class=th>Materia</th>
                 <?php
                     include "conexion.php";
-   	                $query= "SELECT * FROM materia";
+   	                $query= "SELECT * FROM materia WHERE id_año=1";
+                    $ejecucion = mysqli_query( $conectar, $query);
+                    $nro_reg = mysqli_num_rows($ejecucion);
+                        foreach ($ejecucion as $materia) {
+                            echo "<tr>";
+                            echo "<td class=tdd>" . $materia['id_materia'] . "</td>";
+                            echo "<td class=tdd>" . $materia['materia'] . "</td>";
+            
+                            echo "</tr>";
+                        }
+                    "</table>";
+                    echo "<br>";
+                    echo "<br>";
+                    echo "<br>";
+                    
+                ?>
+                <h3>Materias de 2do año</h3>
+    <table border='1' class="table">
+                        </tr>
+                        <tr><th class=th>ID</th>
+                        <th class=th>Materia</th>
+                 <?php
+                    include "conexion.php";
+   	                $query= "SELECT * FROM materia WHERE id_año=2";
+                    $ejecucion = mysqli_query( $conectar, $query);
+                    $nro_reg = mysqli_num_rows($ejecucion);
+                        foreach ($ejecucion as $materia) {
+                            echo "<tr>";
+                            echo "<td class=tdd>" . $materia['id_materia'] . "</td>";
+                            echo "<td class=tdd>" . $materia['materia'] . "</td>";
+            
+                            echo "</tr>";
+                        }
+                    "</table>";
+                    echo "<br>";
+                    echo "<br>";
+                    echo "<br>";
+                    
+                ?>
+                <h3>Materias de 3cer año</h3>
+    <table border='1' class="table">
+                        </tr>
+                        <tr><th class=th>ID</th>
+                        <th class=th>Materia</th>
+                 <?php
+                    include "conexion.php";
+   	                $query= "SELECT * FROM materia WHERE id_año=3";
+                    $ejecucion = mysqli_query( $conectar, $query);
+                    $nro_reg = mysqli_num_rows($ejecucion);
+                        foreach ($ejecucion as $materia) {
+                            echo "<tr>";
+                            echo "<td class=tdd>" . $materia['id_materia'] . "</td>";
+                            echo "<td class=tdd>" . $materia['materia'] . "</td>";
+            
+                            echo "</tr>";
+                        }
+                    "</table>";
+                    echo "<br>";
+                    echo "<br>";
+                    echo "<br>";
+                    
+                ?>
+                <h3>Materias de 4to año</h3>
+    <table border='1' class="table">
+                        </tr>
+                        <tr><th class=th>ID</th>
+                        <th class=th>Materia</th>
+                 <?php
+                    include "conexion.php";
+   	                $query= "SELECT * FROM materia WHERE id_año=4";
+                    $ejecucion = mysqli_query( $conectar, $query);
+                    $nro_reg = mysqli_num_rows($ejecucion);
+                        foreach ($ejecucion as $materia) {
+                            echo "<tr>";
+                            echo "<td class=tdd>" . $materia['id_materia'] . "</td>";
+                            echo "<td class=tdd>" . $materia['materia'] . "</td>";
+            
+                            echo "</tr>";
+                        }
+                    "</table>";
+                    echo "<br>";
+                    echo "<br>";
+                    echo "<br>";
+                    
+                ?>
+                <h3>Materias de 5to año</h3>
+    <table border='1' class="table">
+                        </tr>
+                        <tr><th class=th>ID</th>
+                        <th class=th>Materia</th>
+                 <?php
+                    include "conexion.php";
+   	                $query= "SELECT * FROM materia WHERE id_año=5";
+                    $ejecucion = mysqli_query( $conectar, $query);
+                    $nro_reg = mysqli_num_rows($ejecucion);
+                        foreach ($ejecucion as $materia) {
+                            echo "<tr>";
+                            echo "<td class=tdd>" . $materia['id_materia'] . "</td>";
+                            echo "<td class=tdd>" . $materia['materia'] . "</td>";
+            
+                            echo "</tr>";
+                        }
+                    "</table>";
+                    echo "<br>";
+                    echo "<br>";
+                    echo "<br>";
+                    
+                ?>
+                <h3>Materias de 6to año</h3>
+    <table border='1' class="table">
+                        </tr>
+                        <tr><th class=th>ID</th>
+                        <th class=th>Materia</th>
+                 <?php
+                    include "conexion.php";
+   	                $query= "SELECT * FROM materia WHERE id_año=6";
                     $ejecucion = mysqli_query( $conectar, $query);
                     $nro_reg = mysqli_num_rows($ejecucion);
                         foreach ($ejecucion as $materia) {

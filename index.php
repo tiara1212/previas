@@ -6,7 +6,16 @@
     <title>Previas Page</title>
 </head>
 <body>
-    <h1>Previas Page</h1>
+<style>
+        img {
+            width: 100%; /* La imagen ocupará el 100% del ancho del contenedor */
+            height: 250px; /* Mantiene la proporción de la imagen */
+        }
+    </style>
+</head>
+<body>
+
+    <img src="pages/PREVIAS-PAGE.png" alt="Descripción de la imagen">
     <a href="pages/alumnos-datos.php">Alumnos</a>
     <a href="pages/profes-datos.php">Profesores</a>
     <a href="pages/preceptores-datos.php">Preceptores</a>
