@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1:3306
--- Tiempo de generación: 19-10-2024 a las 00:47:38
+-- Tiempo de generación: 01-11-2024 a las 23:10:22
 -- Versión del servidor: 8.3.0
 -- Versión de PHP: 8.2.18
 
@@ -31,7 +31,7 @@ DROP TABLE IF EXISTS `administrador`;
 CREATE TABLE IF NOT EXISTS `administrador` (
   `id_admin` int NOT NULL AUTO_INCREMENT,
   `contraseña` int NOT NULL,
-  `usuario` text COLLATE utf8mb4_spanish_ci NOT NULL,
+  `usuario` text CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish_ci NOT NULL,
   PRIMARY KEY (`id_admin`)
 ) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
 
@@ -51,9 +51,9 @@ INSERT INTO `administrador` (`id_admin`, `contraseña`, `usuario`) VALUES
 DROP TABLE IF EXISTS `alumnos`;
 CREATE TABLE IF NOT EXISTS `alumnos` (
   `dni` int NOT NULL,
-  `nombre` varchar(30) COLLATE utf8mb4_spanish_ci NOT NULL,
-  `apellido` varchar(20) COLLATE utf8mb4_spanish_ci NOT NULL,
-  `correo` varchar(50) COLLATE utf8mb4_spanish_ci NOT NULL,
+  `nombre` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish_ci NOT NULL,
+  `apellido` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish_ci NOT NULL,
+  `correo` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish_ci NOT NULL,
   `contraseña` int NOT NULL,
   PRIMARY KEY (`dni`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
@@ -63,7 +63,9 @@ CREATE TABLE IF NOT EXISTS `alumnos` (
 --
 
 INSERT INTO `alumnos` (`dni`, `nombre`, `apellido`, `correo`, `contraseña`) VALUES
-(46852794, 'Tiara Guadalupe', 'Bneitez', 'tiarasb689@gmail.com', 46852794);
+(46852794, 'Tiara Guadalupe', 'Bneitez', 'tiarasb689@gmail.com', 46852794),
+(46787355, 'agus', 'ardeola', 'agustinlazari594@gmail.com', 46787355),
+(0, '', '', '', 0);
 
 -- --------------------------------------------------------
 
@@ -110,10 +112,10 @@ INSERT INTO `cursos` (`id_cursos`, `id_nivel`, `dni_alumno`) VALUES
 DROP TABLE IF EXISTS `datosexamen`;
 CREATE TABLE IF NOT EXISTS `datosexamen` (
   `id_dato` int NOT NULL AUTO_INCREMENT,
-  `nombre-profe` varchar(50) COLLATE utf8mb4_spanish_ci NOT NULL,
+  `nombre-profe` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish_ci NOT NULL,
   `id_materia` int NOT NULL,
   `id_año` int NOT NULL,
-  `temario` varchar(12) COLLATE utf8mb4_spanish_ci NOT NULL,
+  `temario` varchar(12) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish_ci NOT NULL,
   PRIMARY KEY (`id_dato`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
 
@@ -126,7 +128,7 @@ CREATE TABLE IF NOT EXISTS `datosexamen` (
 DROP TABLE IF EXISTS `division`;
 CREATE TABLE IF NOT EXISTS `division` (
   `id_division` int NOT NULL AUTO_INCREMENT,
-  `division` varchar(1) COLLATE utf8mb4_spanish_ci NOT NULL,
+  `division` varchar(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish_ci NOT NULL,
   PRIMARY KEY (`id_division`)
 ) ENGINE=MyISAM AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
 
@@ -159,6 +161,13 @@ CREATE TABLE IF NOT EXISTS `inscripciones` (
   `id_mesas` int NOT NULL,
   PRIMARY KEY (`id_inscripciones`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
+
+--
+-- Volcado de datos para la tabla `inscripciones`
+--
+
+INSERT INTO `inscripciones` (`id_inscripciones`, `dni_alumno`, `id_materia`, `id_mesas`) VALUES
+(0, 46787355, 1, 3);
 
 -- --------------------------------------------------------
 
@@ -193,7 +202,7 @@ INSERT INTO `instancia` (`id_instancia`, `id_meses`, `anio`) VALUES
 DROP TABLE IF EXISTS `materia`;
 CREATE TABLE IF NOT EXISTS `materia` (
   `id_materia` int NOT NULL AUTO_INCREMENT,
-  `materia` varchar(50) COLLATE utf8mb4_spanish_ci NOT NULL,
+  `materia` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish_ci NOT NULL,
   `id_año` int NOT NULL,
   PRIMARY KEY (`id_materia`)
 ) ENGINE=MyISAM AUTO_INCREMENT=41 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
@@ -284,7 +293,7 @@ INSERT INTO `mesas` (`id_mesas`, `id_materia`, `fecha`, `horario`, `id_instancia
 DROP TABLE IF EXISTS `meses`;
 CREATE TABLE IF NOT EXISTS `meses` (
   `id_mes` int NOT NULL AUTO_INCREMENT,
-  `mes` varchar(30) COLLATE utf8mb4_spanish_ci NOT NULL,
+  `mes` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish_ci NOT NULL,
   PRIMARY KEY (`id_mes`)
 ) ENGINE=MyISAM AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
 
@@ -314,7 +323,7 @@ INSERT INTO `meses` (`id_mes`, `mes`) VALUES
 DROP TABLE IF EXISTS `nivel`;
 CREATE TABLE IF NOT EXISTS `nivel` (
   `id_nivel` int NOT NULL AUTO_INCREMENT,
-  `nivel` varchar(10) COLLATE utf8mb4_spanish_ci NOT NULL,
+  `nivel` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish_ci NOT NULL,
   `id_division` int NOT NULL,
   PRIMARY KEY (`id_nivel`)
 ) ENGINE=MyISAM AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
@@ -340,9 +349,9 @@ INSERT INTO `nivel` (`id_nivel`, `nivel`, `id_division`) VALUES
 DROP TABLE IF EXISTS `preceptores`;
 CREATE TABLE IF NOT EXISTS `preceptores` (
   `id_preces` int NOT NULL AUTO_INCREMENT,
-  `nombre` varchar(30) COLLATE utf8mb4_spanish_ci NOT NULL,
-  `apellido` varchar(20) COLLATE utf8mb4_spanish_ci NOT NULL,
-  `correo` varchar(50) COLLATE utf8mb4_spanish_ci NOT NULL,
+  `nombre` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish_ci NOT NULL,
+  `apellido` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish_ci NOT NULL,
+  `correo` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish_ci NOT NULL,
   `contraseña` int NOT NULL,
   PRIMARY KEY (`id_preces`)
 ) ENGINE=MyISAM AUTO_INCREMENT=212125 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
@@ -366,14 +375,17 @@ CREATE TABLE IF NOT EXISTS `previas` (
   `dni_alumnos` int NOT NULL,
   `id_materia` int NOT NULL,
   PRIMARY KEY (`id_previas`)
-) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
 
 --
 -- Volcado de datos para la tabla `previas`
 --
 
 INSERT INTO `previas` (`id_previas`, `dni_alumnos`, `id_materia`) VALUES
-(2, 46852794, 1);
+(2, 46852794, 1),
+(3, 46787355, 1),
+(4, 46787355, 1),
+(5, 46787355, 1);
 
 -- --------------------------------------------------------
 
@@ -384,9 +396,9 @@ INSERT INTO `previas` (`id_previas`, `dni_alumnos`, `id_materia`) VALUES
 DROP TABLE IF EXISTS `profesores`;
 CREATE TABLE IF NOT EXISTS `profesores` (
   `id_profes` int NOT NULL AUTO_INCREMENT,
-  `nombre` varchar(30) COLLATE utf8mb4_spanish_ci NOT NULL,
+  `nombre` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish_ci NOT NULL,
   `apellido` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish_ci NOT NULL,
-  `correo` varchar(50) COLLATE utf8mb4_spanish_ci NOT NULL,
+  `correo` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish_ci NOT NULL,
   `contraseña` int NOT NULL,
   PRIMARY KEY (`id_profes`)
 ) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
@@ -408,7 +420,7 @@ DROP TABLE IF EXISTS `talleres`;
 CREATE TABLE IF NOT EXISTS `talleres` (
   `id_talleres` int NOT NULL AUTO_INCREMENT,
   `id_año` int NOT NULL,
-  `talleres` varchar(50) COLLATE utf8mb4_spanish_ci NOT NULL,
+  `talleres` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish_ci NOT NULL,
   PRIMARY KEY (`id_talleres`)
 ) ENGINE=MyISAM AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
 
@@ -439,7 +451,7 @@ INSERT INTO `talleres` (`id_talleres`, `id_año`, `talleres`) VALUES
 DROP TABLE IF EXISTS `turno`;
 CREATE TABLE IF NOT EXISTS `turno` (
   `id_turno` int NOT NULL AUTO_INCREMENT,
-  `turno` varchar(30) COLLATE utf8mb4_spanish_ci NOT NULL,
+  `turno` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish_ci NOT NULL,
   PRIMARY KEY (`id_turno`)
 ) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
 
